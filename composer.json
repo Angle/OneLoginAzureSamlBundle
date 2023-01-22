@@ -1,0 +1,59 @@
+{
+  "name": "anglemx/onelogin-azure-saml-bundle",
+  "description": "OneLogin SAML Bundle for Symfony, hardcoded for Azure AD specs",
+  "type": "symfony-bundle",
+  "keywords": [
+    "angle",
+    "onelogin",
+    "saml",
+    "azure",
+    "sso"
+  ],
+  "homepage": "https://github.com/Angle/OneLoginAzureSamlBundle",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Edmundo Fuentes",
+      "email": "me@edmundofuentes.com",
+      "homepage": "https://www.edmundofuentes.com",
+      "role": "creator,manager,architect,developer"
+    },
+    {
+      "name": "Alejandro Hernández Guerrero",
+      "email": "me@alexhdz.com",
+      "homepage": "https://www.alexhdz.com",
+      "role": "creator,manager,architect,developer"
+    },
+    {
+      "name": "Angle Consulting",
+      "email": "email@angle.mx",
+      "homepage": "https://www.angle.mx",
+      "role": "owner"
+    }
+  ],
+  "require": {
+    "php": ">=7.2",
+    "onelogin/php-saml": "^3.0",
+    "symfony/dependency-injection": "^5.4",
+    "symfony/deprecation-contracts": "^2.1 | ^3",
+    "symfony/event-dispatcher-contracts": "^2.4",
+    "symfony/framework-bundle": "^5.4",
+    "symfony/security-bundle": "^5.4"
+  },
+  "suggest": {
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^9.0"
+  },
+  "config": {
+    "sort-packages": true
+  },
+  "autoload": {
+    "psr-4": {
+      "Angle\\OneLoginAzureSamlBundle\\": ""
+    },
+    "exclude-from-classmap": [
+      "/Tests/"
+    ]
+  }
+}

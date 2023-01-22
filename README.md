@@ -12,5 +12,14 @@ Install with composer
 composer require anglemx/onelogin-azure-saml-bundle
 ```
 
+Enable the bundle in `config/bundles.php` if you're not using Symfony Flex.
+
+```
+return [
+    // ...
+    Angle\OneLoginAzureSamlBundle\AngleOneLoginAzureSamlBundle::class => ['all' => true],
+]
+```
+
 ## Configuration
 _TO-DO_

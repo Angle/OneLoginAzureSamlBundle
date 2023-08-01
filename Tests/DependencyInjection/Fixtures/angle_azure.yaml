@@ -1,0 +1,5 @@
+angle_one_login_azure_saml:
+    azure_app_id: 'xxxXXXxxxXXX'
+    azure_x509_cert: 'xxxXXXxxxXXXxxxXXXxxxXXXxxxXXXxxxXXXxxxXXXxxxXXX'
+    # include protocol (http/https), but do NOT include a trailing slash
+    app_base_url: 'https://myapp.com'

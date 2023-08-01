@@ -1,9 +1,9 @@
 # OneLoginAzureSamlBundle
 OneLogin SAML Bundle for Symfony, hardcoded for Azure AD specs
 
-Soft forked from https://github.com/hslavich/OneloginSamlBundle, hardcoded for Azure AD.
+Soft forked from https://github.com/hslavich/OneloginSamlBundle v2.1 hardcoded for Azure AD.
 
-Current target: Symfony 4.4 LTS
+Current target: Symfony 5.4 LTS
 
 
 Design goals:
@@ -34,9 +34,24 @@ _TO-DO_
 
 REFERENCE FROM hslavich repository
 
-Configure SAML metadata in `config/packages/hslavich_onelogin_saml.yaml`. Check https://github.com/onelogin/php-saml#settings for more info.
+Configure SAML
+```yaml
+angle_one_login_azure_saml:
+    azure_app_id: 'xxxXXXxxxXXX'
+    azure_x509_cert: 'xxxXXXxxxXXXxxxXXXxxxXXXxxxXXXxxxXXXxxxXXXxxxXXX'
+    # include protocol (http/https), but do NOT include a trailing slash
+    app_base_url: 'https://myapp.com'
+```
+
+
+Configure SAML metadata in `config/packages/angle_one_login_azure_saml.yaml`. Check https://github.com/onelogin/php-saml#settings for more info.
+
+
+
+
+
 ``` yml
-hslavich_onelogin_saml:
+angle_one_login_azure_saml:
     # Basic settings
     idp:
         entityId: 'http://id.example.com/saml2/idp/metadata.php'
@@ -155,14 +170,14 @@ idp:
 ```
 
 
-Configure SAML metadata in `config/packages/hslavich_onelogin_saml.yaml`. Check https://github.com/onelogin/php-saml#settings for more info.
+Configure SAML metadata in `config/packages/angle_one_login_azure_saml.yaml`. Check https://github.com/onelogin/php-saml#settings for more info.
 ``` yml
-angle_onelogin_azure_saml:
+angle_one_login_azure_saml:
     idp:
         entityId: ''
 
 
-hslavich_onelogin_saml:
+angle_one_login_azure_saml:
     # Basic settings
     idp:
         entityId: 'http://id.example.com/saml2/idp/metadata.php'

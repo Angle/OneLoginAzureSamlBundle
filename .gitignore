@@ -2,7 +2,12 @@
 /.idea/*
 !/.idea/.name
 
-# TODO: Symfony specific files
+# Symfony bundle files
+composer.lock
+phpunit.xml
+/vendor/
+/build/
+.phpunit.result.cache
 
 # OS generated files #
 ######################

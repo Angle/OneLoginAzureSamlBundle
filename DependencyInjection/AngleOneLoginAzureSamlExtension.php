@@ -50,7 +50,7 @@ angle_one_login_azure_saml:
                 'x509cert' => $azureX509Cert,
             ],
             'sp' => [
-                'entityId' => $appBaseUrl . '/saml/metadata',
+                'entityId' => $appBaseUrl . '/sp',
                 'assertionConsumerService' => [
                     'url' => $appBaseUrl . '/saml/acs',
                     'binding' => 'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST',

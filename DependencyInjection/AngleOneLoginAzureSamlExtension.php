@@ -28,11 +28,12 @@ class AngleOneLoginAzureSamlExtension extends Extension
         $appBaseUrl     = $config['app_base_url'];
         $appTrustProxy  = $config['app_trust_proxy'];
 
+        $azureAdIdp = 'https://sts.windows.net/' . $azureAppId . '/';
         $azureSamlUrl = 'https://login.microsoftonline.com/' . $azureAppId . '/saml2';
 
         $samlSettings = [
             'idp' => [
-                'entityId' => $azureSamlUrl,
+                'entityId' => $azureAdIdp,
                 'singleSignOnService' => [
                     'url' => $azureSamlUrl,
                     'binding' => 'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect',

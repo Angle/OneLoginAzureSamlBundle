@@ -17,6 +17,12 @@ class AngleOneLoginAzureSamlExtension extends Extension
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 
+        // Allow use of ProxyVars. This must only be enabled if the appserver sits behind a _trusted_ proxy
+        // This must be called before we execute the 'services.php' script
+        if ($config['app_trust_proxy']) {
+            \OneLogin\Saml2\Utils::setProxyVars(true);
+        }
+
         $loader = new PhpFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.php');
 
@@ -26,7 +32,6 @@ class AngleOneLoginAzureSamlExtension extends Extension
         $azureAppId     = $config['azure_app_id'];
         $azureX509Cert  = $config['azure_x509_cert'];
         $appBaseUrl     = $config['app_base_url'];
-        $appTrustProxy  = $config['app_trust_proxy'];
 
         $azureAdIdp = 'https://sts.windows.net/' . $azureAppId . '/';
         $azureSamlUrl = 'https://login.microsoftonline.com/' . $azureAppId . '/saml2';
@@ -92,11 +97,6 @@ class AngleOneLoginAzureSamlExtension extends Extension
 
         // Compile the SAML Settings
         $container->setParameter('angle_one_login_azure_saml.azure_saml_settings', $samlSettings);
-
-        // Allow use of ProxyVars. This must only be enabled if the appserver sits behind a _trusted_ proxy
-        if ($appTrustProxy) {
-            \OneLogin\Saml2\Utils::setProxyVars(true);
-        }
 
         if (!empty($config['entityManagerName'])) {
             $container->setParameter('angle_one_login_azure_saml.entity_manager', $config['entityManagerName']);

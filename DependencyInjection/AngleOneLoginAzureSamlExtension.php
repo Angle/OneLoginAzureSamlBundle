@@ -27,6 +27,7 @@ class AngleOneLoginAzureSamlExtension extends Extension
         $loader->load('services.php');
 
         $container->setParameter('angle_one_login_azure_saml.settings', $config);
+        $container->setParameter('angle_one_login_azure_saml.trust_proxy', $config['app_trust_proxy']);
 
         // at this point, parameters should have already been loaded, so we can read directly from them instead of traversing the $config array
         $azureAppId     = $config['azure_app_id'];

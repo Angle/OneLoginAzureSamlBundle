@@ -53,7 +53,8 @@ class SamlAuthenticator implements InteractiveAuthenticatorInterface, Authentica
         array $options,
         ?SamlUserFactoryInterface $userFactory,
         ?EventDispatcherInterface $eventDispatcher,
-        ?LoggerInterface $logger
+        ?LoggerInterface $logger,
+        bool $trustProxy = false
     ) {
         $this->httpUtils = $httpUtils;
         $this->userProvider = $userProvider;
@@ -64,6 +65,10 @@ class SamlAuthenticator implements InteractiveAuthenticatorInterface, Authentica
         $this->userFactory = $userFactory;
         $this->eventDispatcher = $eventDispatcher;
         $this->logger = $logger;
+
+        if ($trustProxy) {
+            \OneLogin\Saml2\Utils::setProxyVars(true);
+        }
     }
 
     public function supports(Request $request): ?bool

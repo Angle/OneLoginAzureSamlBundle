@@ -37,6 +37,7 @@ return static function (ContainerConfigurator $container): void {
             /* 6 */ null,  // user factory
             /* 7 */ service(\Symfony\Contracts\EventDispatcher\EventDispatcherInterface::class)->nullOnInvalid(),
             /* 8 */ service(\Psr\Log\LoggerInterface::class)->nullOnInvalid(),
+            /* 9 */ '%angle_one_login_azure_saml.settings.app_trust_proxy%'
         ])
     ;
 

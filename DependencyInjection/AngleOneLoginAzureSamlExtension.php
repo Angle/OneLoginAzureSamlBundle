@@ -22,17 +22,11 @@ class AngleOneLoginAzureSamlExtension extends Extension
 
         $container->setParameter('angle_one_login_azure_saml.settings', $config);
 
-        /* config/packages/angle_one_login_azure_saml.yml
-angle_one_login_azure_saml:
-    azure_app_id: xxxXXXxxxXXX
-    azure_x509_cert: 'xxxXXXxxxXXXxxxXXXxxxXXXxxxXXXxxxXXXxxxXXXxxxXXX'
-    app_base_url: https://myapp.com
- */
-
         // at this point, parameters should have already been loaded, so we can read directly from them instead of traversing the $config array
         $azureAppId     = $config['azure_app_id'];
         $azureX509Cert  = $config['azure_x509_cert'];
         $appBaseUrl     = $config['app_base_url'];
+        $appTrustProxy  = $config['app_trust_proxy'];
 
         $azureSamlUrl = 'https://login.microsoftonline.com/' . $azureAppId . '/saml2';
 
@@ -97,6 +91,11 @@ angle_one_login_azure_saml:
 
         // Compile the SAML Settings
         $container->setParameter('angle_one_login_azure_saml.azure_saml_settings', $samlSettings);
+
+        // Allow use of ProxyVars. This must only be enabled if the appserver sits behind a _trusted_ proxy
+        if ($appTrustProxy) {
+            \OneLogin\Saml2\Utils::setProxyVars(true);
+        }
 
         if (!empty($config['entityManagerName'])) {
             $container->setParameter('angle_one_login_azure_saml.entity_manager', $config['entityManagerName']);

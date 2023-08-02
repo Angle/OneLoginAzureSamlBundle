@@ -177,6 +177,7 @@ class Configuration implements ConfigurationInterface
                 ->scalarNode('azure_app_id')->end()
                 ->scalarNode('azure_x509_cert')->end()
                 ->scalarNode('app_base_url')->end()
+                ->scalarNode('app_trust_proxy')->defaultFalse()->end()
         ;
 
         return $treeBuilder;

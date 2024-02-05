@@ -16,6 +16,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
+use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationException;
 use Symfony\Component\Security\Core\Exception\LogicException;
 use Symfony\Component\Security\Core\Exception\SessionUnavailableException;
 use Symfony\Component\Security\Core\Exception\UserNotFoundException;
@@ -102,7 +103,21 @@ class SamlAuthenticator implements InteractiveAuthenticatorInterface, Authentica
             throw new AuthenticationException($errorReason);
         }
 
-        return $this->createPassport();
+        $passport = $this->createPassport();
+
+        $user = $passport->getUser();
+
+        if (!$user) { // this check might not be necessary as it is being performed by the Passport agent
+            // fail authentication with a custom error
+            throw new CustomUserMessageAuthenticationException('Email could not be found.');
+        }
+
+        if (method_exists($user, 'isEnabled') && !$user->isEnabled()) {
+            // fail authentication with a custom error
+            throw new CustomUserMessageAuthenticationException("User has been suspended.");
+        }
+
+        return $passport;
     }
 
     public function createAuthenticatedToken(PassportInterface $passport, string $firewallName): TokenInterface

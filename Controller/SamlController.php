@@ -2,8 +2,10 @@
 
 namespace Angle\OneLoginAzureSamlBundle\Controller;
 
+use Angle\OneLoginAzureSamlBundle\Exception\PublicMessageRuntimeException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\Exception\BadCredentialsException;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -37,7 +39,12 @@ class SamlController extends AbstractController
         }
 
         if ($error instanceof \Exception) {
-            throw new \RuntimeException($error->getMessage());
+            if ($error instanceof BadCredentialsException) {
+                throw new PublicMessageRuntimeException($error->getMessage(), 'User authentication with Azure SAML2 SSO failed. User is not authorized or registered for this Application, or bad credentials were provided.');
+            }
+
+            // make a best effort to display this error to the end user
+            throw new PublicMessageRuntimeException($error->getMessage(), 'User authentication with Azure SAML2 SSO failed. ' . $error->getMessage()); // TODO: this will potentially make
         }
 
         $this->samlAuth->login($targetPath);
